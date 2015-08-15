@@ -141,18 +141,16 @@ class BaseViewer(object):
                                   label=label,
                                   style='filled',
                                   shape='circle',
-                                  fillcolor='#ffffff',
-                                  fontsize=self.font_size)
+                                  fillcolor='#ffffff')
 
                 graph_nodes[node_id] = new_g_node
 
-            g_node =  graph_nodes[node_id]
+            g_node = graph_nodes[node_id]
 
             if expanded or chosen:
                 g_node.set_fillcolor(self.fringe_color)
             if in_fringe:
                 g_node.set_color(self.fringe_color)
-                g_node.set_penwidth(3)
             if in_successors:
                 g_node.set_color(self.successor_color)
                 g_node.set_fontcolor(self.successor_color)
@@ -170,8 +168,7 @@ class BaseViewer(object):
 
             edge = Edge(g_parent_node,
                         g_node,
-                        label=node.action_representation(),
-                        fontsize=self.font_size)
+                        label=node.action_representation())
 
             if is_successor:
                 edge.set_color(self.successor_color)
