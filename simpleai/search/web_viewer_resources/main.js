@@ -7,7 +7,27 @@ var graph_options = {
       sortMethod: 'directed'
     }
   },
-  physics: false,
+  physics:{
+    enabled: true,
+    hierarchicalRepulsion: {
+      centralGravity: 0.0,
+      springLength: 100,
+      springConstant: 0.01,
+      nodeDistance: 120,
+      damping: 0.09
+    },
+    maxVelocity: 50,
+    minVelocity: 0.1,
+    solver: 'hierarchicalRepulsion',
+    timestep: 0.5,
+    stabilization: {
+      enabled: true,
+      iterations: 1000,
+      updateInterval: 100,
+      onlyDynamicEdges: false,
+      fit: true
+    }
+  },
   interaction: {
     dragNodes: false,
     hideEdgesOnDrag: true
