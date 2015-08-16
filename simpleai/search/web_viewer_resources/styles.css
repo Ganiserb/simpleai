@@ -81,7 +81,6 @@ div.text_tab {
 
 div#graph {
     width: 100%;
-    position: fixed;
     margin-bottom: 0;
     overflow: hidden;
 }
