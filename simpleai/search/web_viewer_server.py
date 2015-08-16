@@ -54,6 +54,7 @@ def run_server(viewer):
                     data = {}
                     data['stats'] = [{'name': stat.replace('_', ' '), 'value': value}
                                      for stat, value in viewer.stats.items()]
+                    data['graph_dot_string'] = viewer.graph_dot_string
 
                     for event in viewer.events[announced:news_limit]:
                         data['event'] = event.__dict__
