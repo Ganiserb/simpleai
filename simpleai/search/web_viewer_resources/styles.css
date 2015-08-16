@@ -86,6 +86,11 @@ div#graph {
     overflow: hidden;
 }
 
+#graph_image {
+    height: 100%;
+    width: 100%;
+}
+
 div.bottom-bar {
     position: fixed;
     bottom: 0;
