@@ -14,10 +14,6 @@ var graph_options = {
   }
 };
 
-function reset_graph_zoom() {
-  graph_image.panzoom('reset');
-}
-
 function AlgorithmInfoCtrl($scope) {
   $scope.last_event = {name: "hola", description: "chau"};
   $scope.events = [];
@@ -37,10 +33,6 @@ function AlgorithmInfoCtrl($scope) {
       // generate it from the dot string
       new vis.Network(graph_image, parsed_data, graph_options);
     });
-
-    if ($scope.last_event.name == 'finished') {
-      reset_graph_zoom();
-    }
   };
 }
 
