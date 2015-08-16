@@ -1,4 +1,18 @@
 var graph_image = null;
+var parsed_data = null;
+var graph_options = {
+  layout: {
+    hierarchical: {
+      enabled: true,
+      sortMethod: 'directed'
+    }
+  },
+  physics: false,
+  interaction: {
+    dragNodes: false,
+    hideEdgesOnDrag: true
+  }
+};
 
 function reset_graph_zoom() {
   graph_image.panzoom('reset');
@@ -17,23 +31,22 @@ function AlgorithmInfoCtrl($scope) {
       $scope.last_event = data.event;
       $scope.stats = data.stats;
       $scope.events.push($scope.last_event);
+
+      // Get the graph in dot format
+      parsed_data = vis.network.convertDot(data.graph_dot_string);
+      // generate it from the dot string
+      new vis.Network(graph_image, parsed_data, graph_options);
     });
 
     if ($scope.last_event.name == 'finished') {
       reset_graph_zoom();
     }
-
-    graph_image.attr('src', '/graph?unique=' + new Date().valueOf());
   };
 }
 
 function showTab(tab_name) {
-  if (tab_name == 'graph' && $('#graph').is(':visible')) {
-    reset_graph_zoom();
-  } else {
-    $('.tab').hide();
-    $('#' + tab_name).show();
-  }
+      $('.tab').hide();
+      $('#' + tab_name).show();
 }
 
 function controlAlgorithm(order) {
@@ -44,16 +57,7 @@ function controlAlgorithm(order) {
 }
 
 $(document).ready(function() {
-  graph_image = $('#graph_image').panzoom();
-  graph_image.panzoom();
-  graph_image.bind('mousewheel', function(e) {
-    if (e.originalEvent.wheelDelta / 120 > 0) {
-      graph_image.panzoom('zoom');
-    }
-    else {
-      graph_image.panzoom('zoom', true);
-    }
-  });
+  graph_image = document.getElementById('graph_image');
 
   $(window).keypress(function(event) {
     if (event.which == 13) {
