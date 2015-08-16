@@ -210,6 +210,8 @@ class BaseViewer(object):
 
         graph.write(image_path, format=image_format)
 
+        return graph.to_string()  # Return a DOT string for the graph
+
 
 class ConsoleViewer(BaseViewer):
     def __init__(self, interactive=True):
@@ -270,6 +272,7 @@ class WebViewer(BaseViewer):
 
         tmp_folder = mkdtemp(prefix='simpleai_web_server_')
         self.graph_path = path.join(tmp_folder, 'graph.png')
+        self.graph_dot_string = None
 
     def event(self, name, *params):
         if name == 'started':
@@ -278,7 +281,8 @@ class WebViewer(BaseViewer):
         super(WebViewer, self).event(name, *params)
 
         self.creating_graph = True
-        self.create_graph(self.graph_path.split('.')[-1], self.graph_path)
+        self.graph_dot_string = self.create_graph(self.graph_path.split('.')[-1],
+                                                  self.graph_path)
         self.creating_graph = False
 
         if self.status == 'running_step':
