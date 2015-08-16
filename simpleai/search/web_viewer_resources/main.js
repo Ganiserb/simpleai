@@ -4,26 +4,29 @@ var graph_options = {
   layout: {
     hierarchical: {
       enabled: true,
-      sortMethod: 'directed'
+      sortMethod: 'directed',
+      levelSeparation: 200
     }
+  },
+  edges:{
+    physics: false
   },
   physics:{
     enabled: true,
     hierarchicalRepulsion: {
       centralGravity: 0.0,
       springLength: 100,
-      springConstant: 0.01,
+      springConstant: 0.21,
       nodeDistance: 120,
       damping: 0.09
     },
     maxVelocity: 50,
-    minVelocity: 0.1,
+    minVelocity: 1,
     solver: 'hierarchicalRepulsion',
     timestep: 0.5,
     stabilization: {
       enabled: true,
-      iterations: 1000,
-      updateInterval: 100,
+      iterations: 100,
       onlyDynamicEdges: false,
       fit: true
     }
@@ -51,7 +54,8 @@ function AlgorithmInfoCtrl($scope) {
       // Get the graph in dot format
       parsed_data = vis.network.convertDot(data.graph_dot_string);
       // generate it from the dot string
-      new vis.Network(graph_image, parsed_data, graph_options);
+      var graph = new vis.Network(graph_image, parsed_data, graph_options);
+      graph.fit();  // Center the graph to fit inside the container
     });
   };
 }
